@@ -20,5 +20,39 @@ module.exports = {
     filename: "bundle.js",
     // 2.3 Ruta base de archivos estaticos
     publicPath: "/"
+  },
+  // 3. Configuración de los loaders
+  module: {
+    rules: [
+      // 3.1 Reglas para archivos JS
+      {
+        // 3.1.1 Expresión regular para identificar archivos
+        test: /\.js$/,
+        // 3.1.2 Excluir archivos de la carpeta node_modules
+        exclude: /node_modules/,
+        // 3.1.3 Usar el loader de babel
+        use:[
+          {
+            loader: "babel-loader",
+            // 3.1.4 Opciones de configuración de babel
+            options: {
+              presets: [
+                [
+                  '@babel/preset-env',
+                  // 3.1.5 Opciones de configuración de present-env
+                  {
+                    "modules": false,
+                    "useBuiltIns": "usage",
+                    // 3.1.6 Corejs para usar con polyfills
+                    "targets": '> 0.25%, not dead',
+                    "corejs": 3
+                  }
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    ]   
   }
 };
