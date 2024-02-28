@@ -1,3 +1,7 @@
+//Cargando estilos
+import './styles/style.css'
+import './styles/style-b.css'
+
 console.log("Webpack Working!!! 📦");
 
 // Codigo ES6
