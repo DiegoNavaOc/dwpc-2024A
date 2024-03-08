@@ -1,16 +1,14 @@
-// Important notes
-// 🚨 Configuration file must use ES5 not ES6
-// that's why you will see "requires" not "imports"
-
-// Importing an file routing manager
-const path = require('path');
-// Importing plugin
+// Importing extract plugin
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ESlintPlugin = require("eslint-webpack-plugin");
 
-// We export a configuration object
-// that will be used by webpack
+// Importar un administrador de rutas de archivos
+const path = require("path");
+
+// Exportamos un objeto de configuracion
+// que sera usado por webpack
 module.exports = {
+  // 0. Modo de empaquetado
+  mode: "development",
   // 1. The entry file from which
   // it will contain all the definitions to package
   entry: "./client/index.js",
@@ -41,42 +39,45 @@ module.exports = {
   // Adding a module to webpack
   module: {
     rules: [
+
       {
         // This section stablishes 
 				// what rules to apply to ".js" files
         test: /\.js$/,
         // We Dont want to transpile any kind of modules
-        exclude: /(node_modules|bower_components)/,
+        exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader',
+            loader: "babel-loader",
             options: {
               presets: [
                 [
                   '@babel/preset-env',
                   {
-                    'modules': false,
-                    'useBuiltIns': 'usage',
-                    'targets': {"chrome": "80"},
-                    'corejs': 3
-                  }
-                ]
-              ]
-            }
-          }
-        ]
+                    modules: false,
+                    useBuiltIns: "usage",
+                    targets: "> 0.25%, not dead",
+                    corejs: 3,
+                  },
+                ],
+              ],
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
-      }
-    ]
+        use: [
+          MiniCssExtractPlugin.loader, 
+          "css-loader",
+        ],
+      },
+    ],
   },
-  plugins: [
-    new MiniCssExtractPlugin({
-      // Archivo css de salida
-      filename: 'styles/app.css'
-    }),
-    new ESlintPlugin()
-  ]
-}
+    plugins: [
+      new MiniCssExtractPlugin({
+        // Archivo css de salida
+        filename: "styles/app.css"
+      })
+    ]
+};

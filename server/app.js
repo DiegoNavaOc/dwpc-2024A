@@ -13,7 +13,43 @@ import logger from "morgan";
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
 
+//Importando las dependencias de webpack
+import webpack, { web } from 'webpack';
+import WebpackDevMiddleware from 'webpack-dev-middleware';
+import WebpackHotMiddleware from 'webpack-hot-middleware';
+//Importando la configuración de webpack
+import webpackConfig from '../webpack.dev.config';
+
 var app = express();
+
+//Obteniendo el modo de ejecución de la app
+const nodeEviroment = process.env.NODE_ENV || 'production';
+
+//Configurando el entorno de desarrollo
+if(nodeEviroment === 'developement'){
+  console.log("🛠 Ejecutando en modo desarrollo");
+  //Agregando el modo de ejecución a la Configuración
+  webpackConfig.mode = 'development';
+  //Estableciendo el puerto del servidor de desarrollo
+  webpackConfig.devServer.port = process.env.PORT;
+  //Configurando el HMR (Hot Module Replacement)
+  webpackConfig.entry = [
+    'webpack-hot-middleware/client?reload=true&timeout=1000',
+    webpackConfig.entry
+  ];
+  //Agregar el plugin a la configuración de desarrollo de Webpack
+  webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
+  // Generando el empaquetado de (bundle) de webpack
+  const bundle = webpack(webpackConfig);
+  // Agregando el middleware de webpack
+  app.use(WebpackDevMiddleware(bundle, {
+    publicPath: webpackConfig.output.publicPath
+  }));
+  // Agregando el middleware de HMR
+  app.use(WebpackHotMiddleware(bundle));
+}else{
+  console.log("🚀 Ejecutando en modo producción")
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

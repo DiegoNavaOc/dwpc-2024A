@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=production node ./dist/bin/www",
-    "dev": "NODE_ENV=developement babel-watch --watch ./server/views ./server/bin/www",
+    "dev": "NODE_ENV=developement DEBUG=it-server babel-watch --watch ./server/views ./server/bin/www",
     "devc": "NODE_ENV=development && webpack serve --config ./webpack.dev.config.js --mode development",
     "dev-nodemon": "NODE_ENV=developement nodemon --exec babel-node ./server/bin/www",
     "cleans": "rm -rf dist",
@@ -25,9 +25,7 @@
     "express": "~4.16.1",
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1",
-    "webpack-dev-middleware": "^6.0.2",
-    "webpack-hot-middleware": "^2.25.3"
+    "morgan": "~1.9.1"
   },
   "devDependencies": {
     "babel-loader": "^9.1.3",
@@ -39,6 +37,8 @@
     "nodemon": "^3.0.3",
     "webpack": "^5.76.1",
     "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
+    "webpack-dev-middleware": "^6.1.1",
+    "webpack-dev-server": "^4.11.1",
+    "webpack-hot-middleware": "^2.26.1"
   }
 }
