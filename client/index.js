@@ -1,6 +1,5 @@
 //Cargando estilos
 import './styles/style.css'
-import './styles/style-b.css'
 
 console.log("Webpack Working!!! 📦");
 
@@ -29,3 +28,4 @@ async function asyncCall() {
 
 // Llamar a la función asincrona
 asyncCall();
+show();
