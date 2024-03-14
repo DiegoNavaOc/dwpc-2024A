@@ -1,43 +1,42 @@
-// Preámbulo 
+// Preámbulo
 // Ayuda a manejar errores http 
 import createError from "http-errors"; 
 // Ayuda a crear servidores web 
 import express from "express"; 
 // Nucleo de node, ayuda al manejo de las rutas 
-import path from "path"; 
+import path from "path";
 // Ayuda al manejo de cookies 
 import cookieParser from "cookie-parser"; 
 // Maneja el log de peticiones http 
 import logger from "morgan"; 
 
-import indexRouter from './routes/index';
-import usersRouter from './routes/users';
-
-//Importando las dependencias de webpack
-import webpack, { web } from 'webpack';
+// Importando las dependencias de webpack
+import webpack from 'webpack';
 import WebpackDevMiddleware from 'webpack-dev-middleware';
 import WebpackHotMiddleware from 'webpack-hot-middleware';
-//Importando la configuración de webpack
+import usersRouter from './routes/users';
+import indexRouter from './routes/index';
+// Importando la configuración de webpack
 import webpackConfig from '../webpack.dev.config';
 
-var app = express();
+const app = express();
 
-//Obteniendo el modo de ejecución de la app
+// Obteniendo el modo de ejecución de la app
 const nodeEviroment = process.env.NODE_ENV || 'production';
 
-//Configurando el entorno de desarrollo
+// Configurando el entorno de desarrollo
 if(nodeEviroment === 'developement'){
   console.log("🛠 Ejecutando en modo desarrollo");
-  //Agregando el modo de ejecución a la Configuración
+  // Agregando el modo de ejecución a la Configuración
   webpackConfig.mode = 'development';
-  //Estableciendo el puerto del servidor de desarrollo
+  // Estableciendo el puerto del servidor de desarrollo
   webpackConfig.devServer.port = process.env.PORT;
-  //Configurando el HMR (Hot Module Replacement)
+  // Configurando el HMR (Hot Module Replacement)
   webpackConfig.entry = [
     'webpack-hot-middleware/client?reload=true&timeout=1000',
     webpackConfig.entry
   ];
-  //Agregar el plugin a la configuración de desarrollo de Webpack
+  // Agregar el plugin a la configuración de desarrollo de Webpack
   webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
   // Generando el empaquetado de (bundle) de webpack
   const bundle = webpack(webpackConfig);
@@ -66,12 +65,13 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
-// error handler
-app.use(function(err, req, res, next) {
+// error handler 
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

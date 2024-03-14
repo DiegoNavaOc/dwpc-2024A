@@ -27,7 +27,12 @@
     "express": "~4.16.1",
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "webpack": "^5.76.1",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1",
+    "webpack-dev-middleware": "^6.1.1",
+    "webpack-hot-middleware": "^2.26.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.10",
@@ -44,11 +49,6 @@
     "eslint-webpack-plugin": "^4.0.0",
     "mini-css-extract-plugin": "^2.7.5",
     "nodemon": "^3.0.3",
-    "prettier": "^2.8.7",
-    "webpack": "^5.76.1",
-    "webpack-cli": "^5.0.1",
-    "webpack-dev-middleware": "^6.1.1",
-    "webpack-dev-server": "^4.11.1",
-    "webpack-hot-middleware": "^2.26.1"
+    "prettier": "^2.8.7"
   }
 }
