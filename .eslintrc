@@ -12,5 +12,8 @@
     },
     "settings": {
         "import/resolver" : { "babel-module" : {}}
+    },
+    "globals": {
+        "M": "readonly"
     }
 }
